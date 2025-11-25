@@ -1,35 +1,48 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useState, useEffect } from 'react';
+import ContractAccordion from './components/ContractAccordion';
+import './styles.css';
+import Logo from './assets/logo.svg';
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [contracts, setContracts] = useState([]);
+
+  useEffect(() => {
+    const fetchContracts = async () => {
+      try {
+        const response = await fetch('/contracts.json');
+        if (!response.ok) {
+          throw new Error('Failed to fetch contracts');
+        }
+        const data = await response.json();
+        setContracts(data);
+      } catch (err) {
+        console.error('Error fetching contracts:', err);
+      }
+    };
+    fetchContracts();
+  }, []);
 
   return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="app">
+      <header className="app-header">
+        <div className="app-header-content">
+          <img src={Logo} alt="AXPO Logo" className="app-logo" />
+          <h1 className="app-title">Contract Onboarding</h1>
+        </div>
+      </header>
+
+      <main className="app-main">
+        <section className="contract-section">
+          <h2 className="section-title">Contract Summary</h2>
+          <div className="accordion-grid">
+            {contracts.map((contract) => (
+              <ContractAccordion key={contract.id} contractData={contract} />
+            ))}
+          </div>
+        </section>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;

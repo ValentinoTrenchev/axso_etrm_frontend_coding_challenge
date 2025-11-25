@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "contractType": "Existing Client – New Business",
+    "commodity": "Power",
+    "country": "France",
+    "flagIcon": "/FR.svg",
+    "signatureDate": "26/04/2023",
+    "period": "01/01/2023 – 31/12/2027"
+  },
+  {
+    "id": 2,
+    "contractType": "Existing Client – New Business",
+    "commodity": "Power",
+    "country": "France",
+    "flagIcon": "/FR.svg",
+    "signatureDate": "26/04/2023",
+    "period": "01/01/2023 – 31/12/2027"
+  }
+]
